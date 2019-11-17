@@ -1,21 +1,22 @@
-# homehubtool
+# the-spy-who-loved-me
 
-Based on https://github.com/FransVDB/BBox3SagemTool
+* Package with:
+```mvn clean package```
 
-Command line utility for getting/setting configuration options on Bell Home Hub 3000, Belgacom Box 3 (BBox3), and potentially other routers based on the same generation of Sagemcom platform.
+* then to run:
+```mvn spring-boot:run```
 
-Runs on .net core 2.2.
 
-```
-Arguments:
---get [xpath]           Retrieve JSON dump of given xpath
---set [xpath] [value]   Set given xpath to given value
---url                   URL of router, default http://192.168.2.1
---username              Default admin
---password              Default admin
---help                  Show this help
-```
+To execute the crawler to crawl profiles from LinkedIn, run the following two commands:
 
-Example:
+To crawl hired profiles:
+java -cp target/the-spy-who-loved-me.jar com.criteo.hackathon.LinkedinCrawlController -i input_profile_hired -o profiles_hired -u https://www.linkedin.com/in/jonathan-wu-264316b
 
-`dotnet run --get Device > configdump.json`
+To crawl rejected profiles:
+java -cp target/the-spy-who-loved-me.jar com.criteo.hackathon.LinkedinCrawlController -i input_profile_rejected -o profiles_rejected -u https://www.linkedin.com/in/jonathan-wu-264316b
+
+To render text file from crawl result:
+rm -rf profiles_hired_output/*
+rm -rf profiles_rejected_output/*
+java -cp target/the-spy-who-loved-me.jar com.criteo.hackathon.LinkedInOutput.FileReader profiles_hired profiles_hired_output
+java -cp target/the-spy-who-loved-me.jar com.criteo.hackathon.LinkedInOutput.FileReader profiles_rejected profiles_rejected_output
